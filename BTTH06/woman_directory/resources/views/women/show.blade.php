@@ -26,11 +26,14 @@
             </div>
 
             <div class="col-lg-8 col-md-7">
-                <h3>Information is being updated...</h3>
+                <h3>Information </h3>
                 <p class="sm-width-95 sm-margin-auto"><span class="fw-bold">Birthday: </span>{{$woman->birth_date}}</p>
                 <p class="sm-width-95 sm-margin-auto"><span class="fw-bold">Filed of work: </span>{{$woman->field_of_work}}</p>
                 <p class="sm-width-95 sm-margin-auto"><span class="fw-bold">Bio: </span>{{$woman->biography}}</p>
             </div>
+            <div class="d-flex gap-2 justify-content-center ">
+                        <a href="{{route('women.index')}}" class="btn btn-warning">Back</a>
+                    </div>
         </div>
     </div>
 </div>
