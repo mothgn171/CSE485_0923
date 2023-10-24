@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Session; 
+
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Artwork;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class ArtworkController extends Controller
     public function create()
     {
         //
-        $types = ['art','music','literature'];
+        $types = ['art', 'music', 'literature'];
         return view('artworks.add', compact('types'));
     }
 
@@ -48,12 +49,19 @@ class ArtworkController extends Controller
         $artwork->art_type = $validateData['art_type'];
         $artwork->media_link = $validateData['media_link'];
         $artwork->cover_image = $validateData['cover_image'];
+        // Kiểm tra nếu có tệp hình ảnh được tải lên
+        if ($request->hasFile('cover_image')) {
+            $imagePath = $request->file('cover_image')->store('images', 'public'); // Lưu hình ảnh vào thư mục 'images' trong storage/app/public
+            $artwork->cover_image = $imagePath; // Lưu đường dẫn hình ảnh vào cột 'image'
+        }
+
+        $artwork->save();
 
         $artwork->save();
         Session::flash('success', 'Add New ArtWork Successfully');
         return redirect()->route('artworks.index');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -71,7 +79,6 @@ class ArtworkController extends Controller
     {
         //
         return view('artworks.edit', compact('artwork'));
-
     }
 
     /**
@@ -79,19 +86,18 @@ class ArtworkController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-        $validateData = $request->validate([
+        $validator = $request->validate([
             'artist_name' => 'required',
             'description' => 'required',
             'art_type' => 'required',
             'media_link' => 'required',
-            'cover_image' => 'required',
         ]);
-        $artwork = Artwork::findOrFail($id);
-        $artwork->artist_name = $validateData['artist_name'];
-        $artwork->description = $validateData['description'];
-        $artwork->art_type = $validateData['art_type'];
-        $artwork->media_link = $validateData['media_link'];
+
+        $artwork = Artwork::find($id);
+        $artwork->artist_name = $validator['artist_name'];
+        $artwork->description = $validator['description'];
+        $artwork->art_type = $validator['art_type'];
+        $artwork->media_link = $validator['media_link'];
 
         // Kiểm tra nếu có tệp hình ảnh được tải lên
         if ($request->hasFile('cover_image')) {
@@ -100,7 +106,7 @@ class ArtworkController extends Controller
             if (strpos($artwork->cover_image, 'images') === 0) {
                 Storage::disk('public')->delete($artwork->cover_image);
             }
-            $artwork->cover_image = $imagePath; // Lưu đường dẫn hình ảnh vào cột 'image'
+            $artwork->cover_image = $imagePath;
         }
 
         $artwork->save();

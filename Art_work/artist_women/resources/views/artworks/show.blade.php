@@ -1,4 +1,3 @@
-
 @extends('layouts/base')
 
 @section('title', $artwork->artist_name)
@@ -9,13 +8,11 @@
         <div class="row">
             <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
                 <div class="team-single-img rounded overflow-hidden">
-                    
+
                     @if(strpos($artwork->cover_image, 'http') === 0)
-                    <!-- Loại <img> cho trường hợp hình ảnh trực tuyến -->
-                    <img style="width: 300px; max-height: 300px;object-fit:cover;" class="w-100" src="{{ $artwork->cover_image }}" alt="Hình ảnh">
+                    <img style="width: 300px; max-height: 300px;object-fit:cover;" class="w-100 rounded" src="{{ $artwork->cover_image }}" alt="Hình ảnh">
                     @else
-                    <!-- Loại <img> cho trường hợp hình ảnh trong storage -->
-                    <img style="width: 100%; max-height: 500px;object-fit:cover;" src="{{ asset('storage/' . $artwork->cover_image) }}" alt="Hình ảnh">
+                    <img style="width: 300px; max-height: 300px;object-fit:cover;" class="w-100 rounded" src="{{ asset('storage/' . $artwork->cover_image) }}" alt="Image is not exists">
                     @endif
 
                 </div>
@@ -31,8 +28,8 @@
                 <p class="sm-width-95 sm-margin-auto"><span class="fw-bold">Media Link: </span>{{$artwork->media_link}}</p>
             </div>
             <div class="form-group mt-3">
-            <a href="{{ route('artworks.index') }}"><button type="button" class="btn btn-warning">Back</button></a>
-        </div>
+                <a href="{{ route('artworks.index') }}"><button type="button" class="btn btn-warning">Back</button></a>
+            </div>
         </div>
     </div>
 </div>
