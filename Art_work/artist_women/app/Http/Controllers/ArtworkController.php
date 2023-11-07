@@ -13,11 +13,12 @@ class ArtworkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-        $artwork = Artwork::all();
-        return view('artworks.index', compact('artwork'));
+    public function index(Request $request)
+    {   
+        $artworks = Artwork::all();
+        $artworks = Artwork::orderBy('created_at', 'desc')->paginate(10);
+        
+        return view('artworks.index', compact('artworks'));
     }
 
     /**

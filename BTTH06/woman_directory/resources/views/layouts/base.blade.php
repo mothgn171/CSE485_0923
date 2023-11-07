@@ -27,6 +27,10 @@
                     </ul>
                 </div>
             </div>
+            <form action="/search" method="GET">
+                <input type="text" name="query" placeholder="Enter search keywords...">
+                <button type="submit">Search</button>
+            </form>
         </nav>
     </header>
 

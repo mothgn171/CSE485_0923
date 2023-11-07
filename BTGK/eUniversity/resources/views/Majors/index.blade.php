@@ -2,51 +2,51 @@
 
 @section('content')
     <main class="container vh-100 mt-5">
-    <h3 class="text-center">WOMEN MANAGEMENT</h3>
+    <h3 class="text-center">MAJOR MANAGEMENT</h3>
         <div>
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-            <a href="{{ route('women.create') }}" class="btn btn-success">Add</a>
+            <a href="{{ route('majors.create') }}" class="btn btn-success">Add</a>
             <table class="table">
                 <thead>
                     <tr>
                         <th class="text-center" scope="col">#</th>
                         <th class="text-center" scope="col">Name</th>
-                        <th class="text-center" scope="col">Biography</th>
-                        <th class="text-center" scope="col">Field of work</th>
-                        <th class="text-center" scope="col">Birth of Date</th>
+                        <th class="text-center" scope="col">Description</th>
+                        <th class="text-center" scope="col">Duration</th> 
                         <th class="text-center" scope="col">Details</th>
                         <th class="text-center" scope="col">Edit</th>
                         <th class="text-center" scope="col">Delete</th>
                     </tr>
                 </thead>
-                @foreach ($women as $woman)
+                @foreach ($majors as $major)
                     <tbody> 
                         <tr>
-                            <th class="text-center" scope="row">{{ $woman->id }}</th>
-                            <td >{{ $woman->name }}</td>
-                            <td >{{ $woman->biography }}</td>
-                            <td >{{ $woman->field_of_work }}</td>
-                            <td >{{ $woman->birth_date }} </td>
+                            <th class="text-center" scope="row">{{ $major->id }}</th>
+                            <td >{{ $major->name }}</td>
+                            <td >{{ $major->description }}</td>
+                            <td >{{ $major->duration }} year</td>
+                                
+                            </td>
                             <td class="text-center">
-                            <a href="{{ route('women.show', ['woman' => $woman]) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('majors.show', ['major' => $major]) }}" class="btn btn-sm btn-warning">
                             <i class="fa-solid fa-eye"></i>
                             </a>
                             </td>
                             <td class="text-center">
-                            <a href="{{ route('women.edit', ['woman' => $woman]) }}" class="btn btn-sm btn-primary">
+                            <a href="{{ route('majors.edit', ['major' => $major]) }}" class="btn btn-sm btn-primary">
                             <i class="fa-solid fa-pen-to-square"></i>
                              </a>
                             </td>
                             
                             <td class="text-center">
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#woman{{ $woman->id }}"><i class="fa-solid fa-trash"></i>
+                                    data-bs-target="#major{{ $major->id }}"><i class="fa-solid fa-trash"></i>
                                 </button>
-                                <div class="modal fade" id="woman{{ $woman->id }}" tabindex="-1"
+                                <div class="modal fade" id="major{{ $major->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -56,12 +56,12 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                Delete the women has id: {{ $woman->id }}
+                                                Delete the major has id: {{ $major->id }}
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <form action="{{ route('women.destroy', ['woman' => $woman]) }}"
+                                                <form action="{{ route('majors.destroy', ['major' => $major]) }}"
                                                     method="post">
                                                     @csrf
                                                     @method('DELETE')
@@ -71,9 +71,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </td>
                     </tbody>
                 @endforeach
+        </div>
+        <div class="pagination fixed-bottom justify-content-end">
+            {{ $majors->links()}}
         </div>
     </main>
 @endsection

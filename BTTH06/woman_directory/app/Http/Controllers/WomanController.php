@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Woman;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session; // cái này dùng để làm gì vậy
+use Illuminate\Support\Facades\Session; 
 use Illuminate\Support\Facades\Storage; // Add this line
 
 
@@ -13,12 +13,16 @@ class WomanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $woman = Woman::all();
-        return view('women.index', compact('woman'));
+        $showSearchForm = true;
+        $search = $request->input('search');
+        $women = Woman::where('name', 'like', '%' . $search . '%')->get();
+        
+
+        return view('women.index', ['women' => $women]);
     }
+
 
     /**
      * Show the form for creating a new resource.

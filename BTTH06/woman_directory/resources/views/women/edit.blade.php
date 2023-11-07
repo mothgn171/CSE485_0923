@@ -47,7 +47,7 @@
             <textarea type="text" name="biography" class="form-control" required>{{ $woman->biography}}</textarea>
         </div>
         <div class="form-group mt-3">
-            <a href="{{ route('women.index') }}"><button type="button" class="btn btn-warning">Cancel</button></a>
+            <a href="{{ route('women.index') }}"><button type="button" class="btn btn-warning">Back</button></a>
             <button type="submit" class="btn btn-success ml-2">Save</button>
         </div>
     </form>

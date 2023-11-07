@@ -23,7 +23,7 @@
                         <th class="text-center" scope="col">Delete</th>
                     </tr>
                 </thead>
-                @foreach ($artwork as $artwork)
+                @foreach ($artworks as $artwork)
                     <tbody> 
                         <tr>
                             <th class="text-center" scope="row">{{ $artwork->id }}</th>
